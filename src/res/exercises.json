@@ -2,7 +2,16 @@
     "exercises_names" : [
         {
             "id": 0,
-            "view":"<span class='red'>Ã</span>k",
+            "view": [
+                {
+                    "color": "red",
+                    "symbols": "Ã"
+                },
+                {
+                    "color": "black",
+                    "symbols": "k"
+                }
+            ],
             "answers": [
                 "Крюк с задержкой",
                 "Крюк",
@@ -13,7 +22,16 @@
         },
         {
             "id": 1,
-            "view":"<span class='red'>ö</span>v",
+            "view": [
+                {
+                    "color": "red",
+                    "symbols": "Ã"
+                },
+                {
+                    "color": "black",
+                    "symbols": "k"
+                }
+            ],
             "answers": [
                 "Тихий голубчик",
                 "Стопица",
@@ -24,7 +42,16 @@
         },
         {
             "id": 2,
-            "view":"<span class='red'>ð</span>Z",
+            "view": [
+                {
+                    "color": "red",
+                    "symbols": "Ã"
+                },
+                {
+                    "color": "black",
+                    "symbols": "k"
+                }
+            ],            
             "answers": [
                 "Стрела громосветлая",
                 "Крюк с подверткой",
