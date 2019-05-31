@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Kruk from '../Kruk'
+import Header from '../Header'
+import Mark from '../Mark'
 import exercises from '../../res/exercises'
 
 const styles = StyleSheet.create({
@@ -39,7 +41,7 @@ export default class Game extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      exercise: exercises.exercises_names[this.getRandomInt(0, 3)],
+      exercise: exercises.exercises_names.exercises[this.getRandomInt(0, 3)],
       score: 0,
     }
   }
@@ -51,12 +53,12 @@ export default class Game extends Component {
     const { score } = this.state
     if (result) {
       this.setState({
-        exercise: exercises.exercises_names[this.getRandomInt(0, 3)],
+        exercise: exercises.exercises_names.exercises[this.getRandomInt(0, 3)],
         score: score + 1,
       })
     } else {
       this.setState({
-        exercise: exercises.exercises_names[this.getRandomInt(0, 3)],
+        exercise: exercises.exercises_names.exercises[this.getRandomInt(0, 3)],
       })
     }
   }
@@ -65,14 +67,15 @@ export default class Game extends Component {
     const { score, exercise } = this.state
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Угадай название знамени</Text>
-        </View>
+        <Header title="Угадай знамя" />
         <View style={styles.score}>
           <Text style={styles.scoreText}>Счет: {score}</Text>
         </View>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Mark />
+        </View>
         <View style={styles.exercise}>
-          <Kruk exercise={exercise} onChecked={this.onChecked} />
+          <Kruk exercise={exercise} question={exercises.exercises_names.question} onChecked={this.onChecked} />
         </View>
       </View>
     )

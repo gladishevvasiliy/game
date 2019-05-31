@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Button, StyleSheet } from 'react-native'
+import { View, Button, StyleSheet, Text } from 'react-native'
 import { isNil } from 'lodash'
 
 import ViewKruk from '../ViewKruk'
@@ -10,14 +10,23 @@ import ViewKruk from '../ViewKruk'
 
 const styles = StyleSheet.create({
   view: {
-    flex: 2,
+    flex: 5,
   },
   exercise: {
     flex: 1,
   },
   buttons: {
-    flex: 1,
+    flex: 3,
     justifyContent: 'space-around',
+    padding: 10,
+  },
+  questionBlock: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  questionText: {
+    fontSize: 20,
   },
 })
 
@@ -29,6 +38,7 @@ export default class Kruk extends Component {
     } = this.props
     if (trueAnswer === title) {
       this.setState({
+        // eslint-disable-next-line react/no-unused-state
         trueAnswerButtonColor: 'green',
       })
       onChecked(true)
@@ -38,15 +48,19 @@ export default class Kruk extends Component {
   }
 
   render() {
-    const { exercise } = this.props
+    const { exercise, question } = this.props
     if (isNil(exercise.view)) return null
     return (
       <React.Fragment>
         <View style={styles.view}>
           <ViewKruk view={exercise.view} />
         </View>
+        <View style={styles.questionBlock}>
+          <Text style={styles.questionText}>{question}</Text>
+        </View>
         <View style={styles.buttons}>
           {exercise.answers.map((answer, index) => (
+            // eslint-disable-next-line react/no-array-index-key
             <Button key={index} title={answer} onPress={event => this.buttonHandler(event, answer)} color="#841584" />
           ))}
         </View>

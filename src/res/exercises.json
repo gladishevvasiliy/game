@@ -1,64 +1,52 @@
 {
-    "exercises_names" : [
-        {
-            "id": 0,
-            "view": [
-                {
-                    "color": "red",
-                    "symbols": "Ã"
-                },
-                {
-                    "color": "black",
-                    "symbols": "k"
-                }
-            ],
-            "answers": [
-                "Крюк с задержкой",
-                "Крюк",
-                "Параклит",
-                "Борзый голубчик"
-            ],
-            "trueAnswer": "Крюк"
-        },
-        {
-            "id": 1,
-            "view": [
-                {
-                    "color": "red",
-                    "symbols": "Ã"
-                },
-                {
-                    "color": "black",
-                    "symbols": "k"
-                }
-            ],
-            "answers": [
-                "Тихий голубчик",
-                "Стопица",
-                "Параклит с отсечкой",
-                "Стрела простая"
-            ],
-            "trueAnswer": "Стопица"
-        },
-        {
-            "id": 2,
-            "view": [
-                {
-                    "color": "red",
-                    "symbols": "Ã"
-                },
-                {
-                    "color": "black",
-                    "symbols": "k"
-                }
-            ],            
-            "answers": [
-                "Стрела громосветлая",
-                "Крюк с подверткой",
-                "Статья мрачная",
-                "Запятая"
-            ],
-            "trueAnswer": "Запятая"
-        }
+  "exercises_names": {
+    "question": "Как называется знамя?",
+    "exercises": [
+      {
+        "id": 0,
+        "view": [
+          {
+            "color": "red",
+            "symbols": "Ã"
+          },
+          {
+            "color": "black",
+            "symbols": "k"
+          }
+        ],
+        "answers": ["Крюк с задержкой", "Крюк", "Параклит", "Борзый голубчик"],
+        "trueAnswer": "Крюк"
+      },
+      {
+        "id": 1,
+        "view": [
+          {
+            "color": "red",
+            "symbols": "ö"
+          },
+          {
+            "color": "black",
+            "symbols": "v"
+          }
+        ],
+        "answers": ["Тихий голубчик", "Стопица", "Параклит с отсечкой", "Стрела простая"],
+        "trueAnswer": "Стопица"
+      },
+      {
+        "id": 2,
+        "view": [
+          {
+            "color": "red",
+            "symbols": "ð"
+          },
+          {
+            "color": "black",
+            "symbols": "Z"
+          }
+        ],
+        "answers": ["Стрела громосветлая", "Крюк с подверткой", "Статья мрачная", "Запятая"],
+        "trueAnswer": "Запятая"
+      }
     ]
+  }
 }
