@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { isEmpty, isNil, clone } from 'lodash'
 import Kruk from '../Kruk'
 import Header from '../Header'
 import Mark from '../Mark'
-import exercises from '../../res/exercises'
+import GameOver from '../GameOver'
+import RESULT from '../../res/constants'
+import { getExersisesList, getQuestion } from '../../res/utils'
 
 const styles = StyleSheet.create({
   title: {
@@ -41,42 +44,86 @@ export default class Game extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      exercise: exercises.exercises_names.exercises[this.getRandomInt(0, 3)],
+      currentExercises: getExersisesList(0),
+      currentQuestion: getQuestion(0),
       score: 0,
+      currentResult: '',
+      currentExercise: {},
     }
+  }
+
+  componentDidMount = () => {
+    this.getRandomExercise()
   }
 
   getRandomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min
 
-  onChecked = result => {
-    console.log(result)
-    const { score } = this.state
+  getRandomExercise = () => {
+    this.setNewExercise()
+  }
+
+  setExerciseDataToState = (currentExercises, result, initialScore, initialResult) => {
+    const { score, currentResult } = this.state
+    const randomNum = this.getRandomInt(0, currentExercises.length)
+    const newCurrentExercises = clone(currentExercises)
+    newCurrentExercises.splice(randomNum, 1)
+    this.setState({
+      currentExercise: currentExercises[randomNum],
+      currentExercises: newCurrentExercises,
+      score: !isNil(initialScore) ? initialScore : result ? score + 1 : score,
+      currentResult: !isNil(initialResult)
+        ? initialResult
+        : isNil(result)
+        ? currentResult // eslint-disable-line
+        : result // eslint-disable-line
+        ? RESULT.ANSWER_TRUE // eslint-disable-line
+        : RESULT.ANSWER_FALSE, // eslint-disable-line
+    })
+  }
+
+  setNewExercise = (isNewGame, result) => {
+    if (isNewGame) {
+      this.setExerciseDataToState(getExersisesList(0), null, 0, '')
+      return
+    }
+    const { currentExercises } = this.state
     if (result) {
-      this.setState({
-        exercise: exercises.exercises_names.exercises[this.getRandomInt(0, 3)],
-        score: score + 1,
-      })
+      this.setExerciseDataToState(currentExercises, result)
     } else {
-      this.setState({
-        exercise: exercises.exercises_names.exercises[this.getRandomInt(0, 3)],
-      })
+      this.setExerciseDataToState(currentExercises, result)
     }
   }
 
+  onChecked = result => {
+    const { score } = this.state
+    this.setNewExercise(false, result, score)
+  }
+
+  startNewGame = () => {
+    this.setNewExercise(true)
+  }
+
   render() {
-    const { score, exercise } = this.state
+    const { score, currentExercise, currentResult, currentQuestion } = this.state
+    const { returnToMenu } = this.props
     return (
       <View style={styles.container}>
         <Header title="Угадай знамя" />
-        <View style={styles.score}>
-          <Text style={styles.scoreText}>Счет: {score}</Text>
-        </View>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Mark />
-        </View>
-        <View style={styles.exercise}>
-          <Kruk exercise={exercise} question={exercises.exercises_names.question} onChecked={this.onChecked} />
-        </View>
+        {isEmpty(currentExercise) ? (
+          <GameOver score={score} startNewGame={this.startNewGame} returnToMenu={returnToMenu} />
+        ) : (
+          <React.Fragment>
+            <View style={styles.score}>
+              <Text style={styles.scoreText}>Счет: {score}</Text>
+            </View>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+              <Mark result={currentResult} />
+            </View>
+            <View style={styles.exercise}>
+              <Kruk exercise={currentExercise} question={currentQuestion} onChecked={this.onChecked} />
+            </View>
+          </React.Fragment>
+        )}
       </View>
     )
   }

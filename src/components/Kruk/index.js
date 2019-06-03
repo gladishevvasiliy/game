@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttons: {
-    flex: 3,
+    flex: 4,
     justifyContent: 'space-around',
     padding: 10,
   },
@@ -61,7 +61,7 @@ export default class Kruk extends Component {
         <View style={styles.buttons}>
           {exercise.answers.map((answer, index) => (
             // eslint-disable-next-line react/no-array-index-key
-            <Button key={index} title={answer} onPress={event => this.buttonHandler(event, answer)} color="#841584" />
+            <Button key={index} title={answer} onPress={event => this.buttonHandler(event, answer)} color="#78909C" />
           ))}
         </View>
       </React.Fragment>
