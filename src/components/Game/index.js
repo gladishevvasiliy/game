@@ -6,7 +6,7 @@ import Header from '../Header'
 import Mark from '../Mark'
 import GameOver from '../GameOver'
 import RESULT from '../../res/constants'
-import { getExersisesList, getQuestion } from '../../res/utils'
+import { getExersisesList, getQuestion, getRandomInt } from '../../res/utils'
 
 const styles = StyleSheet.create({
   title: {
@@ -56,15 +56,13 @@ export default class Game extends Component {
     this.getRandomExercise()
   }
 
-  getRandomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min
-
   getRandomExercise = () => {
     this.setNewExercise()
   }
 
   setExerciseDataToState = (currentExercises, result, initialScore, initialResult) => {
     const { score, currentResult } = this.state
-    const randomNum = this.getRandomInt(0, currentExercises.length)
+    const randomNum = getRandomInt(0, currentExercises.length)
     const newCurrentExercises = clone(currentExercises)
     newCurrentExercises.splice(randomNum, 1)
     this.setState({

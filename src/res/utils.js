@@ -1,5 +1,7 @@
 import exercises from './exercises'
 
+export const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min)) + min
+
 export const getExersisesList = numOfExercise => {
   switch (numOfExercise) {
     case 0:
