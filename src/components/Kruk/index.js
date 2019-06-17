@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { View, Button, StyleSheet, Text } from 'react-native'
 import { isNil } from 'lodash'
 import ViewKruk from '../ViewKruk'
-import { KRUKI } from '../../res/constants'
-import { getRandomInt } from '../../res/utils'
+import { getRandomInt, shuffleArray } from '../../res/utils'
+import exercises from '../../res/exercises'
 
 // из случайного массива заданий случайным образом получается крюк. Передается в компонент Крюк.
 // Нажатие на вариант ответа вызывает функцию, которая подсвечивает правильный вариант ответа,
@@ -38,17 +38,18 @@ export default class Kruk extends Component {
   }
 
   componentDidMount = () => {
-    const variants = []
-    const allVariants = KRUKI
+    const currentVariants = []
+    const { variants } = this.props
+    console.log(variants)
     let i = 0
     while (i < 3) {
-      const randomNumber = getRandomInt(0, allVariants.length)
-      variants.push(allVariants[randomNumber].label)
-      allVariants.splice(randomNumber, 1)
+      const randomNumber = getRandomInt(0, variants.length)
+      currentVariants.push(variants[randomNumber])
+      variants.splice(randomNumber, 1)
       i += 1
     }
-
-    this.setState({ variants })
+    console.log(currentVariants)
+    this.setState({ variants: currentVariants })
   }
 
   buttonHandler = (e, title) => {
@@ -80,7 +81,7 @@ export default class Kruk extends Component {
           <Text style={styles.questionText}>{question}</Text>
         </View>
         <View style={styles.buttons}>
-          {[...variants, exercise.trueAnswer].map((answer, index) => (
+          {shuffleArray([...variants, exercise.trueAnswer]).map((answer, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <Button key={index} title={answer} onPress={event => this.buttonHandler(event, answer)} color="#78909C" />
           ))}

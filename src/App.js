@@ -15,21 +15,33 @@ const styles = StyleSheet.create({
 export default class App extends React.Component {
   state = {
     startGame: false,
+    numberOfExercises: 10,
+    typeOfExercise: 0,
   }
 
   returnToMenu = () => {
     this.setState({ startGame: false })
   }
 
-  startGame = () => {
-    this.setState({ startGame: true })
+  startGame = typeOfExercise => {
+    console.log('HRREEEEEEEEEEEEEEEEEEE')
+    console.log(typeOfExercise)
+    this.setState({ startGame: true, typeOfExercise })
   }
 
   render() {
-    const { startGame } = this.state
+    const { startGame, numberOfExercises, typeOfExercise } = this.state
     return (
       <View style={styles.container}>
-        {startGame ? <Game returnToMenu={this.returnToMenu} /> : <Menu startGame={this.startGame} />}
+        {startGame ? (
+          <Game
+            returnToMenu={this.returnToMenu}
+            numberOfExercises={numberOfExercises}
+            typeOfExerсise={typeOfExercise}
+          />
+        ) : (
+          <Menu startGame={this.startGame} />
+        )}
       </View>
     )
   }

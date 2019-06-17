@@ -36,8 +36,14 @@ const styles = StyleSheet.create({
 })
 
 export default class Menu extends Component {
-  render() {
+  startGame = typeOfGame => {
+    console.log('THERE')
+    console.log(typeOfGame)
     const { startGame } = this.props
+    startGame(typeOfGame)
+  }
+
+  render() {
     return (
       <View style={styles.container}>
         <View style={styles.menu}>
@@ -45,9 +51,19 @@ export default class Menu extends Component {
             <Text style={styles.title}>Меню</Text>
           </View>
           <View style={styles.menuBlock}>
-            <TouchableWithoutFeedback onPress={startGame}>
+            <TouchableWithoutFeedback onPress={() => this.startGame(0)}>
               <View style={styles.button}>
-                <Text style={styles.buttonText}>Начать игру</Text>
+                <Text style={styles.buttonText}>Угадай знамя</Text>
+              </View>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={() => this.startGame(1)}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Угадай помету</Text>
+              </View>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={() => this.startGame(2)}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Угадай соли</Text>
               </View>
             </TouchableWithoutFeedback>
           </View>

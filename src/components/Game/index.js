@@ -6,7 +6,7 @@ import Header from '../Header'
 import Mark from '../Mark'
 import GameOver from '../GameOver'
 import RESULT from '../../res/constants'
-import { getExersisesList, getQuestion, getRandomInt } from '../../res/utils'
+import { getExersisesList, getQuestion, getRandomInt, getVariants } from '../../res/utils'
 
 const styles = StyleSheet.create({
   title: {
@@ -43,9 +43,13 @@ const styles = StyleSheet.create({
 export default class Game extends Component {
   constructor(props) {
     super(props)
+    const { numberOfExercises, typeOfExerсise } = this.props
+    // console.log('typeOfExerсise')
+    // console.log(typeOfExerсise)
     this.state = {
-      currentExercises: getExersisesList(0),
-      currentQuestion: getQuestion(0),
+      currentExercises: getExersisesList(typeOfExerсise, numberOfExercises),
+      currentQuestion: getQuestion(typeOfExerсise),
+      currentVariants: getVariants(typeOfExerсise),
       score: 0,
       currentResult: '',
       currentExercise: {},
@@ -53,6 +57,7 @@ export default class Game extends Component {
   }
 
   componentDidMount = () => {
+    console.log('componentDidMount')
     this.getRandomExercise()
   }
 
@@ -80,8 +85,9 @@ export default class Game extends Component {
   }
 
   setNewExercise = (isNewGame, result) => {
+    const { typeOfExerсise, numberOfExercises } = this.props
     if (isNewGame) {
-      this.setExerciseDataToState(getExersisesList(0), null, 0, '')
+      this.setExerciseDataToState(getExersisesList(typeOfExerсise, numberOfExercises), null, 0, '')
       return
     }
     const { currentExercises } = this.state
@@ -102,7 +108,7 @@ export default class Game extends Component {
   }
 
   render() {
-    const { score, currentExercise, currentResult, currentQuestion } = this.state
+    const { score, currentExercise, currentResult, currentQuestion, currentVariants } = this.state
     const { returnToMenu } = this.props
     return (
       <View style={styles.container}>
@@ -118,7 +124,12 @@ export default class Game extends Component {
               <Mark result={currentResult} />
             </View>
             <View style={styles.exercise}>
-              <Kruk exercise={currentExercise} question={currentQuestion} onChecked={this.onChecked} />
+              <Kruk
+                exercise={currentExercise}
+                question={currentQuestion}
+                variants={currentVariants}
+                onChecked={this.onChecked}
+              />
             </View>
           </React.Fragment>
         )}
