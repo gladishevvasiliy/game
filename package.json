@@ -11,7 +11,7 @@
     "build-web": "react-scripts build"
   },
   "dependencies": {
-    "expo": "^32.0.0",
+    "expo": "^48.0.0",
     "react": "16.5.0",
     "react-art": "^16.8.6",
     "react-dom": "^16.8.6",
